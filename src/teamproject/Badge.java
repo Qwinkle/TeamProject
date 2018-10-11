@@ -34,7 +34,10 @@ public class Badge {
         this.Desc = Desc;
     }
 
-    
+    @Override
+    public String toString(){
+        return (Desc + ": ");
+    }
     
     
     
