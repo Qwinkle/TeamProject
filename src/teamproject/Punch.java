@@ -5,20 +5,14 @@ import java.util.GregorianCalendar;
 public class Punch {
     private int terminalId, punchTypeId;
     private Badge badge;
-    private long timestamp;
-    private GregorianCalendar cal = new GregorianCalendar();
-    
+    private long origtimestamp, adjustts;
 
-    public Punch(int terminalId, int punchTypeId, Badge badge, long timestamp) {
+    public Punch(int terminalId, int punchTypeId, Badge badge, long origtimestamp, long adjustts) {
         this.terminalId = terminalId;
         this.punchTypeId = punchTypeId;
         this.badge = badge;
-        this.timestamp = timestamp;
-        cal.setTimeInMillis(timestamp);
-        
-    }
-    public String printOriginalTimeStamp(){
-        return null;
+        this.origtimestamp = origtimestamp;
+        this.adjustts = adjustts;
     }
 
     public int getTerminalId() {
@@ -45,21 +39,26 @@ public class Punch {
         this.badge = badge;
     }
 
-    public long getTimestamp() {
-        return timestamp;
+    public long getOrigtimestamp() {
+        return origtimestamp;
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+    public void setOrigtimestamp(long origtimestamp) {
+        this.origtimestamp = origtimestamp;
     }
 
-    public GregorianCalendar getCal() {
-        return cal;
+    public long getAdjustts() {
+        return adjustts;
     }
 
-    public void setCal(GregorianCalendar cal) {
-        this.cal = cal;
+    public void setAdjustts(long adjustts) {
+        this.adjustts = adjustts;
     }
+    
+
+    
+        
+    
     
   
   
