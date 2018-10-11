@@ -1,23 +1,24 @@
 package teamproject;
 
-import java.util.Calendar;
+import java.time.LocalTime;
 import java.util.GregorianCalendar;
+import java.time.temporal.ChronoUnit;
 /**
  *
  * @author ADAM_
  */
 public class Shift {
-    private GregorianCalendar shiftStart;
-    private GregorianCalendar shiftStop;
-    private GregorianCalendar lunchStart;
-    private GregorianCalendar lunchStop;
+    private LocalTime shiftStart;
+    private LocalTime shiftStop;
+    private LocalTime lunchStart;
+    private LocalTime lunchStop;
     private int interval;
     private int gracePeriod;
     private int dock;
     private int lunchDeduct;
     String description;
     
-    public Shift(int interval, int gracePeriod, int dock, int lunchDeduct, String description){
+    public Shift(int interval, int gracePeriod, int dock, int lunchDeduct, String description, LocalTime shiftStart, LocalTime shiftStop, LocalTime lunchStart, LocalTime lunchStop){
         
         this.interval = interval;
         this.gracePeriod = gracePeriod;
@@ -25,31 +26,31 @@ public class Shift {
         this.lunchDeduct = lunchDeduct;
         this.description = description;
         
-        shiftStart = new GregorianCalendar();
-        shiftStop = new GregorianCalendar();
-        lunchStart = new GregorianCalendar();
-        lunchStop = new GregorianCalendar();
+        this.shiftStart = shiftStart;
+        this.shiftStop = shiftStop;
+        this.lunchStart = lunchStart;
+        this.lunchStop = lunchStop;
         
     }
     
     @Override
     public String toString(){
-        return (description + ": ");
+        return (description + ": " + shiftStart + " - " + shiftStop + "(" + ChronoUnit.MINUTES.between(shiftStart, shiftStop) + " minutes);" + "Lunch: " + lunchStart + " - " + lunchStop + "(" + ChronoUnit.MINUTES.between(lunchStart, lunchStop) + " minutes)");
     }
     
-    public GregorianCalendar getShiftStart() {
+    public LocalTime getShiftStart() {
         return shiftStart;
     }
 
-    public GregorianCalendar getShiftStop() {
+    public LocalTime getShiftStop() {
         return shiftStop;
     }
 
-    public GregorianCalendar getLunchStart() {
+    public LocalTime getLunchStart() {
         return lunchStart;
     }
 
-    public GregorianCalendar getLunchStop() {
+    public LocalTime getLunchStop() {
         return lunchStop;
     }
 
@@ -73,19 +74,19 @@ public class Shift {
         return description;
     }
 
-    public void setShiftStart(GregorianCalendar shiftStart) {
+    public void setShiftStart(LocalTime shiftStart) {
         this.shiftStart = shiftStart;
     }
 
-    public void setShiftStop(GregorianCalendar shiftStop) {
+    public void setShiftStop(LocalTime shiftStop) {
         this.shiftStop = shiftStop;
     }
 
-    public void setLunchStart(GregorianCalendar lunchStart) {
+    public void setLunchStart(LocalTime lunchStart) {
         this.lunchStart = lunchStart;
     }
 
-    public void setLunchStop(GregorianCalendar lunchStop) {
+    public void setLunchStop(LocalTime lunchStop) {
         this.lunchStop = lunchStop;
     }
 
