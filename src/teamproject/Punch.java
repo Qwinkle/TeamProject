@@ -1,6 +1,7 @@
 package teamproject;
-
-
+import java.sql.Timestamp;
+import java.sql.Time;
+import java.sql.Date;
 import java.util.GregorianCalendar;
 public class Punch {
     private int terminalId, punchTypeId;
@@ -13,6 +14,14 @@ public class Punch {
         this.badge = badge;
         this.origtimestamp = origtimestamp;
         this.adjustts = adjustts;
+    }
+    public static void origtimestamp(){
+        long time = System.currentTimeMillis();
+        java.sql.Timestamp timestamp = new java.sql.Timestamp(time);
+        timestamp.setNanos(0);
+        
+                        
+                    
     }
 
     public int getTerminalId() {
