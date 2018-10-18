@@ -7,12 +7,15 @@ import java.sql.*;
  * @author qwink
  */
 public class TASDatabase {
-    public TASDatabase(){
-       
-        Connection conn = null;
-        PreparedStatement stmt = null, pstUpdate = null;
-        ResultSet rs = null;
+    
+    Connection conn = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+    String query;
+    Boolean hasResults;    
         
+    public TASDatabase(){
+            
         try{
             
             String server = ("jdbc:mysql://localhost/tas");
@@ -28,6 +31,7 @@ public class TASDatabase {
                 System.out.println("Connected Succesfully");
             }
             
+            stmt = conn.createStatement();
         }
         
         catch (Exception e){
@@ -37,8 +41,25 @@ public class TASDatabase {
     }
     
     
-    public Badge getBadge() {
-        return null;
+    public Badge getBadge(String id) {
+        String desc = null;
+        try {
+            //prepare
+              query = "SELECT * FROM Badge b WHERE id = '" + id + "'";
+            
+              rs = stmt.executeQuery(query);
+
+             if (rs != null){
+                 rs.next();
+                 desc = rs.getString("description");
+             }
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        
+        Badge badge = new Badge(id, desc);
+        
+        return badge;
     }
 
     public Punch getPush() {
@@ -53,4 +74,9 @@ public class TASDatabase {
         return null;
     }
     
+    public void close(){
+        
+        try { conn.close();} catch (Exception e) {System.err.println(e.toString());}
+        
+    }
 }

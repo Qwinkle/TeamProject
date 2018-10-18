@@ -15,12 +15,16 @@ public class TeamProject {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        TASDatabase db = null;
+        
         try{
-            TASDatabase db = new TASDatabase();
+            db = new TASDatabase();
         }
         catch(Exception e){
             System.err.println(e.toString());
         }
+        Badge badge = db.getBadge("021890c0");
+        System.out.println(badge.toString());
     }
     
 }
