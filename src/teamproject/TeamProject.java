@@ -15,7 +15,12 @@ public class TeamProject {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        try{
+            TASDatabase db = new TASDatabase();
+        }
+        catch(Exception e){
+            System.err.println(e.toString());
+        }
     }
     
 }
