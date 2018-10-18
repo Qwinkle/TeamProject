@@ -7,6 +7,7 @@ public class Punch {
     private int terminalId, punchTypeId;
     private Badge badge;
     private long origtimestamp, adjustts;
+    GregorianCalendar greCal = new GregorianCalendar();
 
     public Punch(int terminalId, int punchTypeId, Badge badge, long origtimestamp, long adjustts) {
         this.terminalId = terminalId;
@@ -14,11 +15,9 @@ public class Punch {
         this.badge = badge;
         this.origtimestamp = origtimestamp;
         this.adjustts = adjustts;
+        greCal.setTimeInMillis(origtimestamp);
     }
-    public static void origtimestamp(){
-        long time = System.currentTimeMillis();
-        java.sql.Timestamp timestamp = new java.sql.Timestamp(time);
-        timestamp.setNanos(0);
+    
         
                         
                     
