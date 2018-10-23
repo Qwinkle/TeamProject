@@ -5,26 +5,57 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 public class Punch {
-    private int terminalId, punchTypeId;
+    
+    public static final int CLOCKED_IN = 1;
+    public static final int CLOCKED_OUT = 0;
+    public static final int TIMED_OUT=2;
+    
+    private int terminalId, punchTypeId, ID;
     private Badge badge;
-    private long origtimestamp, adjustts;
-    GregorianCalendar greCal = new GregorianCalendar();
+    private long origtimestamp, adjusttimestamp;
+    
 
-    public Punch(int terminalId, int punchTypeId, Badge badge, long origtimestamp, long adjustts) {
+    public Punch(int terminalId, int punchTypeId, int ID, Badge badge, long origtimestamp) {
         this.terminalId = terminalId;
         this.punchTypeId = punchTypeId;
+        this.ID = ID;
         this.badge = badge;
         this.origtimestamp = origtimestamp;
-        this.adjustts = adjustts;
-        greCal.setTimeInMillis(origtimestamp);
+        this.adjusttimestamp = origtimestamp;
+        
+       
+       
     }
-    public long OriginalTimeStamp(){
-      System.out.println(greCal.get(GregorianCalendar.YEAR)); 
-      System.out.println(greCal.get(GregorianCalendar.MONTH)); 
-      System.out.println(greCal.get(GregorianCalendar.DAY_OF_WEEK));
-      System.out.println(greCal.);
-          
-      }
+        public String printOriginalTimeStamp(){
+            
+            GregorianCalendar greCal = new GregorianCalendar();
+            greCal.setTimeInMillis(origtimestamp);
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE mm/dd/yyyy HH:mm:ss");
+            
+            StringBuilder s = new StringBuilder();
+            
+            s.append("#");
+            s.append(badge.getId());
+            s.append(" ");
+            //punchtypes here
+            switch(punchTypeID){
+                case CLOCKED_IN: s.append("CLOCKED IN");
+                    break;
+                case CLOCKED_OUT: s.append("CLOCKED OUT");
+                    break;
+                default: s.append("TIMED OUT");
+            }
+            s.append(" ");
+            
+            s.append (sdf.format(greCal.getTime()).toUpperCase());
+            
+            return(s.toString());
+            
+        }
+        
+    
+      
       
       
     
@@ -65,9 +96,19 @@ public class Punch {
         this.origtimestamp = origtimestamp;
     }
 
-    public long getAdjustts() {
-        return adjustts;
+    public long getAdjusttimestamp() {
+        return adjusttimestamp;
     }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+    
+    
 
     
     
