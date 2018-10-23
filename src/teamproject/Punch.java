@@ -2,6 +2,7 @@ package teamproject;
 import java.sql.Timestamp;
 import java.sql.Time;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 public class Punch {
     private int terminalId, punchTypeId;
@@ -17,11 +18,20 @@ public class Punch {
         this.adjustts = adjustts;
         greCal.setTimeInMillis(origtimestamp);
     }
+    public long OriginalTimeStamp(){
+      System.out.println(greCal.get(GregorianCalendar.YEAR)); 
+      System.out.println(greCal.get(GregorianCalendar.MONTH)); 
+      System.out.println(greCal.get(GregorianCalendar.DAY_OF_WEEK));
+      System.out.println(greCal.);
+          
+      }
+      
+      
     
         
                         
                     
-    }
+    
 
     public int getTerminalId() {
         return terminalId;
@@ -59,9 +69,7 @@ public class Punch {
         return adjustts;
     }
 
-    public void setAdjustts(long adjustts) {
-        this.adjustts = adjustts;
-    }
+    
     
 
     
