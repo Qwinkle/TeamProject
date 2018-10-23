@@ -36,7 +36,7 @@ public class Badge {
 
     @Override
     public String toString(){
-        return (Desc + "#" + id + " (" + Desc + ")");
+        return ("#" + id + " (" + Desc + ")");
     }
     
     
