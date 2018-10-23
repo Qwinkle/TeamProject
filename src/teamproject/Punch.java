@@ -39,7 +39,7 @@ public class Punch {
             s.append(badge.getId());
             s.append(" ");
             //punchtypes here
-            switch(punchTypeID){
+            switch(punchTypeId){
                 case CLOCKED_IN: s.append("CLOCKED IN");
                     break;
                 case CLOCKED_OUT: s.append("CLOCKED OUT");
