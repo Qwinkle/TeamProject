@@ -4,6 +4,7 @@ import java.sql.Time;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+import java.time.temporal.ChronoUnit;
 public class Punch {
     
     public static final int CLOCKED_IN = 1;
@@ -60,7 +61,7 @@ public class Punch {
             GregorianCalendar greCal = new GregorianCalendar();
             greCal.setTimeInMillis(origtimestamp);
             
-            SimpleDateFormat sdf = new SimpleDateFormat("EEE mm/dd/yyyy HH:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE MM/dd/yyyy HH:mm:ss");
             
             StringBuilder s = new StringBuilder();
             
@@ -83,7 +84,10 @@ public class Punch {
             
         }
       
-      
+      public void adjust (Shift s){
+          
+          public 
+      }
     
         
                         
