@@ -11,26 +11,33 @@ public class Shift {
     private LocalTime shiftStop;
     private LocalTime lunchStart;
     private LocalTime lunchStop;
-    private int interval;
-    private int gracePeriod;
-    private int dock;
-    private int lunchDeduct;
-    String description;
-    
-    public Shift(int interval, int gracePeriod, int dock, int lunchDeduct, String description, LocalTime shiftStart, LocalTime shiftStop, LocalTime lunchStart, LocalTime lunchStop){
-        
+    private int ShiftStartHour, ShiftStartMinute, ShiftStartSecond;
+    private int ShiftStopHour, ShiftStopMinute, ShiftStopSecond;
+    private int interval, gracePeriod, dock, lunchDeduct;
+    private String description;
+
+    public Shift(LocalTime shiftStart, LocalTime shiftStop, LocalTime lunchStart, LocalTime lunchStop, int ShiftStartHour, int ShiftStartMinute, int ShiftStartSecond, int ShiftStopHour, int ShiftStopMinute, int ShiftStopSecond, int interval, int gracePeriod, int dock, int lunchDeduct, String description) {
+        this.shiftStart = shiftStart;
+        this.shiftStop = shiftStop;
+        this.lunchStart = lunchStart;
+        this.lunchStop = lunchStop;
+        this.ShiftStartHour = ShiftStartHour;
+        this.ShiftStartMinute = ShiftStartMinute;
+        this.ShiftStartSecond = ShiftStartSecond;
+        this.ShiftStopHour = ShiftStopHour;
+        this.ShiftStopMinute = ShiftStopMinute;
+        this.ShiftStopSecond = ShiftStopSecond;
         this.interval = interval;
         this.gracePeriod = gracePeriod;
         this.dock = dock;
         this.lunchDeduct = lunchDeduct;
         this.description = description;
-        
-        this.shiftStart = shiftStart;
-        this.shiftStop = shiftStop;
-        this.lunchStart = lunchStart;
-        this.lunchStop = lunchStop;
-        
     }
+
+    
+
+    
+    
     
     @Override
     public String toString(){
@@ -108,6 +115,61 @@ public class Shift {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public int getShiftStartHour() {
+        return ShiftStartHour;
+    }
+
+    public void setShiftStartHour(int ShiftStartHour) {
+        this.ShiftStartHour = ShiftStartHour;
+    }
+
+    public int getShiftStartMinute() {
+        return ShiftStartMinute;
+    }
+
+    public void setShiftStartMinute(int ShiftStartMinute) {
+        this.ShiftStartMinute = ShiftStartMinute;
+    }
+
+    public int getShiftStartSecond() {
+        return ShiftStartSecond;
+    }
+
+    public void setShiftStartSecond(int ShiftStartSecond) {
+        this.ShiftStartSecond = ShiftStartSecond;
+    }
+
+    public int getShiftStopHour() {
+        return ShiftStopHour;
+    }
+
+    public void setShiftStopHour(int ShiftStopHour) {
+        this.ShiftStopHour = ShiftStopHour;
+    }
+
+    public int getShiftStopMinute() {
+        return ShiftStopMinute;
+    }
+
+    public void setShiftStopMinute(int ShiftStopMinute) {
+        this.ShiftStopMinute = ShiftStopMinute;
+    }
+
+    public int getShiftStopSecond() {
+        return ShiftStopSecond;
+    }
+
+    public void setShiftStopSecond(int ShiftStopSecond) {
+        this.ShiftStopSecond = ShiftStopSecond;
+    }
+
+    
+
+    
+    
+
+    
     
     
 }

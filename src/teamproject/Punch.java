@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.time.temporal.ChronoUnit;
 import java.time.LocalTime;
+import java.util.Calendar;
 public class Punch {
     
     public static final int CLOCKED_IN = 1;
@@ -89,7 +90,16 @@ public class Punch {
           
           GregorianCalendar shiftStart = new GregorianCalendar();
           shiftStart.setTimeInMillis(origtimestamp);
-          shiftStart.set(GregorianCalendar.HOUR, Shift.getShiftStartHour());
+          shiftStart.set(Calendar.HOUR, s.getShiftStartHour());
+          shiftStart.set(Calendar.MINUTE, s.getShiftStartMinute());
+          shiftStart.set(Calendar.SECOND, 0);
+          long shiftStartLong = shiftStart.getTimeInMillis();
+          
+          GregorianCalendar shiftStop = new GregorianCalendar();
+          shiftStop.setTimeInMillis(origtimestamp);
+          shiftStop.set(Calendar.HOUR, s.getShiftStopHour());
+          shiftStop.set(Calendar.MINUTE, s.getShiftStartMinute());
+          shiftStop.set(Calendar.SECOND, 0);
           
           
           
