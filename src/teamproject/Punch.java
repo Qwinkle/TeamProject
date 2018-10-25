@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.time.temporal.ChronoUnit;
+import java.time.LocalTime;
 public class Punch {
     
     public static final int CLOCKED_IN = 1;
@@ -86,7 +87,12 @@ public class Punch {
       
       public void adjust (Shift s){
           
-          public 
+          GregorianCalendar shiftStart = new GregorianCalendar();
+          shiftStart.setTimeInMillis(origtimestamp);
+          shiftStart.set(GregorianCalendar.HOUR, Shift.getShiftStartHour());
+          
+          
+          
       }
     
         
