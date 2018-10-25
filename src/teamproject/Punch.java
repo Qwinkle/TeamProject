@@ -55,7 +55,33 @@ public class Punch {
         }
         
     
-      
+      public String printAdjustedTimeStamp(){
+            
+            GregorianCalendar greCal = new GregorianCalendar();
+            greCal.setTimeInMillis(origtimestamp);
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE mm/dd/yyyy HH:mm:ss");
+            
+            StringBuilder s = new StringBuilder();
+            
+            s.append("#");
+            s.append(badge.getId());
+            s.append(" ");
+            //punchtypes here
+            switch(punchTypeId){
+                case CLOCKED_IN: s.append("CLOCKED IN");
+                    break;
+                case CLOCKED_OUT: s.append("CLOCKED OUT");
+                    break;
+                default: s.append("TIMED OUT");
+            }
+            s.append(" ");
+            
+            s.append (sdf.format(greCal.getTime()).toUpperCase());
+            
+            return(s.toString());
+            
+        }
       
       
     
