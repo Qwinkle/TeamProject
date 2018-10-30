@@ -116,7 +116,7 @@ public class Punch {
           
           GregorianCalendar lunchStart = new GregorianCalendar();
           lunchStart.setTimeInMillis(originaltimestamp);
-          lunchStart.set(Calendar.HOUR, s.getLunchStartHour);
+          lunchStart.set(Calendar.HOUR, s.getLunchStartHour());
           lunchStart.set(Calendar.MINUTE, s.getLunchStartMinute());
           long luchStartLong = lunchStart.getTimeInMillis();
           
