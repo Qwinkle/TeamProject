@@ -29,12 +29,12 @@ public class Punch {
        
        
     }
-        public String printOriginalTimeStamp(){
+        public String printOriginalTimestamp(){
             
             GregorianCalendar greCal = new GregorianCalendar();
             greCal.setTimeInMillis(origtimestamp);
             
-            SimpleDateFormat sdf = new SimpleDateFormat("EEE mm/dd/yyyy HH:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE MM/dd/yyyy HH:mm:ss");
             
             StringBuilder s = new StringBuilder();
             
@@ -43,11 +43,11 @@ public class Punch {
             s.append(" ");
             //punchtypes here
             switch(punchTypeId){
-                case CLOCKED_IN: s.append("CLOCKED IN");
+                case CLOCKED_IN: s.append("CLOCKED IN:");
                     break;
-                case CLOCKED_OUT: s.append("CLOCKED OUT");
+                case CLOCKED_OUT: s.append("CLOCKED OUT:");
                     break;
-                default: s.append("TIMED OUT");
+                default: s.append("TIMED OUT:");
             }
             s.append(" ");
             

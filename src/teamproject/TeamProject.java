@@ -23,8 +23,8 @@ public class TeamProject {
         catch(Exception e){
             System.err.println(e.toString());
         }
-        Badge badge = db.getBadge("021890c0");
-        System.out.println(badge.toString());
+        Punch punch = db.getPunch(1963);
+        System.out.println(punch.printOriginalTimestamp());
     }
     
 }

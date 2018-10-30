@@ -63,7 +63,7 @@ public class TASDatabase {
     }
 
     public Punch getPunch(int id) {
-        int terminalId = 0,punchTypeId = 0,ID = 0;
+        int terminalId = 0,punchTypeId = 0;
         long origtimestamp = 0;
         Badge badge = null;
         try {
@@ -90,16 +90,83 @@ public class TASDatabase {
         } catch (Exception e) {
             System.err.println(e.toString());
         }
-        Punch punch = new Punch(terminalId, punchTypeId, ID, badge, origtimestamp * 1000);
+        Punch punch = new Punch(terminalId, punchTypeId, id, badge, origtimestamp * 1000);
         return punch;
     }
 
     public Shift getShift(int id) {
-        return null;
+        int interval = 0, gracePeriod = 0, dock = 0, lunchDeduct = 0, shiftStartHour = 0, shiftStartMin = 0, shiftStopHour = 0, shiftStopMin = 0, lunchStartHour = 0, lunchStartMin = 0, lunchStopHour = 0, lunchStopMin = 0;
+        String description = null;
+        
+        try {
+            //prepare
+              query = "SELECT * FROM Shift s WHERE id = '" + id + "'";
+            
+              rs = stmt.executeQuery(query);
+              //get int fields and description
+             if (rs != null){
+                 rs.next();
+                 description = rs.getString("description");
+                 interval = rs.getInt("interval");
+                 gracePeriod = rs.getInt("graceperiod");
+                 dock = rs.getInt("dock");
+                 lunchDeduct = rs.getInt("lunchdeduct");
+             }
+             
+             //get time in hours
+             query = "SELECT HOUR(start), HOUR(stop), HOUR(lunchstart), HOUR(lunchstop) FROM Shift s WHERE id = '" + id + "'";
+             
+             rs = stmt.executeQuery(query);
+             
+             if (rs != null){
+                 rs.next();
+                 shiftStartHour = rs.getInt("HOUR(start)");
+                 shiftStopHour = rs.getInt("HOUR(stop)");
+                 lunchStartHour = rs.getInt("HOUR(lunchstart)");
+                 lunchStopHour = rs.getInt("HOUR(lunchstop)");
+             }
+             
+             //get time in mins
+             query = "SELECT MINUTE(start), MINUTE(stop), MINUTE(lunchstart), MINUTE(lunchstop) FROM Shift s WHERE id = '" + id + "'";
+             
+             rs = stmt.executeQuery(query);
+             
+             if (rs != null){
+                 rs.next();
+                 shiftStartMin = rs.getInt("MINUTE(start)");
+                 shiftStopMin = rs.getInt("MINUTE(stop)");
+                 lunchStartMin = rs.getInt("MINUTE(lunchstart)");
+                 lunchStopMin = rs.getInt("MINUTE(lunchstop)");
+             }
+             
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        
+        Shift shift = new Shift(interval, gracePeriod, dock, lunchDeduct, description, shiftStartHour, shiftStartMin, shiftStopHour, shiftStopMin, lunchStartHour, lunchStartMin, lunchStopHour, lunchStopMin);
+        
+        return shift;
     }
     
     public Shift getShift(Badge badge){
-        return null;
+        String badgeid = badge.getId();
+        int shiftid = 0;
+        
+        try{
+            
+            query = "SELECT shiftid FROM employee e WHERE badgeid = '" + badgeid + "'";
+            
+            rs = stmt.executeQuery(query);
+            
+            if (rs != null){
+                rs.next();
+                shiftid = rs.getInt("shiftid");
+            }
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        
+        return getShift(shiftid);
     }
     
     public void close(){

@@ -11,22 +11,14 @@ public class Shift {
     private LocalTime shiftStop;
     private LocalTime lunchStart;
     private LocalTime lunchStop;
-    private int ShiftStartHour, ShiftStartMinute, ShiftStartSecond;
-    private int ShiftStopHour, ShiftStopMinute, ShiftStopSecond;
     private int interval, gracePeriod, dock, lunchDeduct;
     private String description;
 
-    public Shift(LocalTime shiftStart, LocalTime shiftStop, LocalTime lunchStart, LocalTime lunchStop, int ShiftStartHour, int ShiftStartMinute, int ShiftStartSecond, int ShiftStopHour, int ShiftStopMinute, int ShiftStopSecond, int interval, int gracePeriod, int dock, int lunchDeduct, String description) {
-        this.shiftStart = shiftStart;
-        this.shiftStop = shiftStop;
-        this.lunchStart = lunchStart;
-        this.lunchStop = lunchStop;
-        this.ShiftStartHour = ShiftStartHour;
-        this.ShiftStartMinute = ShiftStartMinute;
-        this.ShiftStartSecond = ShiftStartSecond;
-        this.ShiftStopHour = ShiftStopHour;
-        this.ShiftStopMinute = ShiftStopMinute;
-        this.ShiftStopSecond = ShiftStopSecond;
+    public Shift(int interval, int gracePeriod, int dock, int lunchDeduct, String description, int shiftStartHour, int shiftStartMin, int shiftStopHour, int shiftStopMin, int lunchStartHour, int lunchStartMin, int lunchStopHour, int lunchStopMin){
+        this.shiftStart = LocalTime.of(shiftStartHour, shiftStartMin);
+        this.shiftStop = LocalTime.of(shiftStopHour, shiftStopMin);
+        this.lunchStart = LocalTime.of(lunchStartHour, lunchStartMin);
+        this.lunchStop = LocalTime.of(lunchStopHour, lunchStopMin);
         this.interval = interval;
         this.gracePeriod = gracePeriod;
         this.dock = dock;
@@ -41,7 +33,7 @@ public class Shift {
     
     @Override
     public String toString(){
-        return (description + ": " + shiftStart + " - " + shiftStop + "(" + ChronoUnit.MINUTES.between(shiftStart, shiftStop) + " minutes);" + "Lunch: " + lunchStart + " - " + lunchStop + "(" + ChronoUnit.MINUTES.between(lunchStart, lunchStop) + " minutes)");
+        return (description + ": " + shiftStart + " - " + shiftStop + " (" + ChronoUnit.MINUTES.between(shiftStart, shiftStop) + " minutes);" + " Lunch: " + lunchStart + " - " + lunchStop + " (" + ChronoUnit.MINUTES.between(lunchStart, lunchStop) + " minutes)");
     }
     
     public LocalTime getShiftStart() {
@@ -116,57 +108,43 @@ public class Shift {
         this.description = description;
     }
 
-    public int getShiftStartHour() {
-        return ShiftStartHour;
+    public int getShiftStartHour(){
+        
+        return shiftStart.getHour();
+        
     }
 
-    public void setShiftStartHour(int ShiftStartHour) {
-        this.ShiftStartHour = ShiftStartHour;
+    public int getShiftStartMinute(){
+        return shiftStart.getMinute();
     }
-
-    public int getShiftStartMinute() {
-        return ShiftStartMinute;
-    }
-
-    public void setShiftStartMinute(int ShiftStartMinute) {
-        this.ShiftStartMinute = ShiftStartMinute;
-    }
-
-    public int getShiftStartSecond() {
-        return ShiftStartSecond;
-    }
-
-    public void setShiftStartSecond(int ShiftStartSecond) {
-        this.ShiftStartSecond = ShiftStartSecond;
-    }
-
-    public int getShiftStopHour() {
-        return ShiftStopHour;
-    }
-
-    public void setShiftStopHour(int ShiftStopHour) {
-        this.ShiftStopHour = ShiftStopHour;
-    }
-
-    public int getShiftStopMinute() {
-        return ShiftStopMinute;
-    }
-
-    public void setShiftStopMinute(int ShiftStopMinute) {
-        this.ShiftStopMinute = ShiftStopMinute;
-    }
-
-    public int getShiftStopSecond() {
-        return ShiftStopSecond;
-    }
-
-    public void setShiftStopSecond(int ShiftStopSecond) {
-        this.ShiftStopSecond = ShiftStopSecond;
-    }
-
     
-
+    public int getShiftStopHour(){
+        return shiftStop.getHour();
+    }
     
+    public int getShiftStopMinute(){
+        return shiftStop.getMinute();
+    }
+    
+    public int getLunchStartHour(){
+        
+        return lunchStart.getHour();
+        
+    }
+
+    public int getLunchStartMinute(){
+        return lunchStart.getMinute();
+    }
+
+    public int getLunchStopHour(){
+        
+        return lunchStop.getHour();
+        
+    }
+
+    public int getLunchStopMinute(){
+        return lunchStop.getMinute();
+    }
     
 
     
