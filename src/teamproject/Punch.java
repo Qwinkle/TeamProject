@@ -13,26 +13,38 @@ public class Punch {
     public static final int CLOCKED_OUT = 0;
     public static final int TIMED_OUT=2;
     
-    private int terminalId, punchTypeId, ID;
+    private int terminalid, Punchtypeid, ID;
     private Badge badge;
-    private long origtimestamp, adjusttimestamp;
-    
+    private long originaltimestamp, adjusttimestamp;
 
-    public Punch(int terminalId, int punchTypeId, int ID, Badge badge, long origtimestamp) {
-        this.terminalId = terminalId;
-        this.punchTypeId = punchTypeId;
+    public Punch(int terminalid, int Punchtypeid, int ID, Badge badge, long originaltimestamp, long adjusttimestamp) {
+        this.terminalid = terminalid;
+        this.Punchtypeid = Punchtypeid;
         this.ID = ID;
         this.badge = badge;
-        this.origtimestamp = origtimestamp;
-        this.adjusttimestamp = origtimestamp;
+        this.originaltimestamp = originaltimestamp;
+        this.adjusttimestamp = adjusttimestamp;
+    }
+    
+
+   
         
        
        
+    
+    public Punch (Badge badge, int terminalid, int Punchtypeid){
+        this.badge = badge;
+        this.terminalid = terminalid;
+        this.Punchtypeid = Punchtypeid;
+        
+        GregorianCalendar greCal = new GregorianCalendar();
+        originaltimestamp = greCal.getTimeInMillis();
+        
     }
         public String printOriginalTimestamp(){
             
             GregorianCalendar greCal = new GregorianCalendar();
-            greCal.setTimeInMillis(origtimestamp);
+            greCal.setTimeInMillis(originaltimestamp);
             
             SimpleDateFormat sdf = new SimpleDateFormat("EEE MM/dd/yyyy HH:mm:ss");
             
@@ -42,7 +54,7 @@ public class Punch {
             s.append(badge.getId());
             s.append(" ");
             //punchtypes here
-            switch(punchTypeId){
+            switch(Punchtypeid){
                 case CLOCKED_IN: s.append("CLOCKED IN:");
                     break;
                 case CLOCKED_OUT: s.append("CLOCKED OUT:");
@@ -61,7 +73,7 @@ public class Punch {
       public String printAdjustedTimeStamp(){
             
             GregorianCalendar greCal = new GregorianCalendar();
-            greCal.setTimeInMillis(origtimestamp);
+            greCal.setTimeInMillis(originaltimestamp);
             
             SimpleDateFormat sdf = new SimpleDateFormat("EEE MM/dd/yyyy HH:mm:ss");
             
@@ -71,12 +83,12 @@ public class Punch {
             s.append(badge.getId());
             s.append(" ");
             //punchtypes here
-            switch(punchTypeId){
-                case CLOCKED_IN: s.append("CLOCKED IN");
+            switch(Punchtypeid){
+                case CLOCKED_IN: s.append("CLOCKED IN:");
                     break;
-                case CLOCKED_OUT: s.append("CLOCKED OUT");
+                case CLOCKED_OUT: s.append("CLOCKED OUT:");
                     break;
-                default: s.append("TIMED OUT");
+                default: s.append("TIMED OUT:");
             }
             s.append(" ");
             
@@ -89,41 +101,50 @@ public class Punch {
       public void adjust (Shift s){
           
           GregorianCalendar shiftStart = new GregorianCalendar();
-          shiftStart.setTimeInMillis(origtimestamp);
+          shiftStart.setTimeInMillis(originaltimestamp);
           shiftStart.set(Calendar.HOUR, s.getShiftStartHour());
           shiftStart.set(Calendar.MINUTE, s.getShiftStartMinute());
           shiftStart.set(Calendar.SECOND, 0);
           long shiftStartLong = shiftStart.getTimeInMillis();
           
           GregorianCalendar shiftStop = new GregorianCalendar();
-          shiftStop.setTimeInMillis(origtimestamp);
+          shiftStop.setTimeInMillis(originaltimestamp);
           shiftStop.set(Calendar.HOUR, s.getShiftStopHour());
-          shiftStop.set(Calendar.MINUTE, s.getShiftStartMinute());
+          shiftStop.set(Calendar.MINUTE, s.getShiftStopMinute());
           shiftStop.set(Calendar.SECOND, 0);
+          long shiftStopLong = shiftStop.getTimeInMillis();
           
+          GregorianCalendar lunchStart = new GregorianCalendar();
+          lunchStart.setTimeInMillis(originaltimestamp);
+          lunchStart.set(Calendar.HOUR, s.getLunchStartHour);
+          lunchStart.set(Calendar.MINUTE, s.getLunchStartMinute());
+          long luchStartLong = lunchStart.getTimeInMillis();
           
           
       }
-    
-        
-                        
-                    
-    
 
-    public int getTerminalId() {
-        return terminalId;
+    public int getTerminalid() {
+        return terminalid;
     }
 
-    public void setTerminalId(int terminalId) {
-        this.terminalId = terminalId;
+    public void setTerminalid(int terminalid) {
+        this.terminalid = terminalid;
     }
 
-    public int getPunchTypeId() {
-        return punchTypeId;
+    public int getPunchtypeid() {
+        return Punchtypeid;
     }
 
-    public void setPunchTypeId(int punchTypeId) {
-        this.punchTypeId = punchTypeId;
+    public void setPunchtypeid(int Punchtypeid) {
+        this.Punchtypeid = Punchtypeid;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public Badge getBadge() {
@@ -134,27 +155,24 @@ public class Punch {
         this.badge = badge;
     }
 
-    public long getOrigtimestamp() {
-        return origtimestamp;
+    public long getOriginaltimestamp() {
+        return originaltimestamp;
     }
 
-    public void setOrigtimestamp(long origtimestamp) {
-        this.origtimestamp = origtimestamp;
+    public void setOriginaltimestamp(long originaltimestamp) {
+        this.originaltimestamp = originaltimestamp;
     }
 
     public long getAdjusttimestamp() {
         return adjusttimestamp;
     }
 
-    public int getID() {
-        return ID;
+    public void setAdjusttimestamp(long adjusttimestamp) {
+        this.adjusttimestamp = adjusttimestamp;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
     
-    
+   
 
     
     
