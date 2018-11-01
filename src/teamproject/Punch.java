@@ -13,14 +13,14 @@ public class Punch {
     public static final int CLOCKED_OUT = 0;
     public static final int TIMED_OUT=2;
     
-    private int terminalid, Punchtypeid, ID;
+    private int terminalid, Punchtypeid, id;
     private Badge badge;
     private long originaltimestamp, adjusttimestamp;
 
-    public Punch(int terminalid, int Punchtypeid, int ID, Badge badge, long originaltimestamp, long adjusttimestamp) {
+    public Punch(int terminalid, int Punchtypeid, int id, Badge badge, long originaltimestamp, long adjusttimestamp) {
         this.terminalid = terminalid;
         this.Punchtypeid = Punchtypeid;
-        this.ID = ID;
+        this.id = id;
         this.badge = badge;
         this.originaltimestamp = originaltimestamp;
         this.adjusttimestamp = adjusttimestamp;
@@ -32,10 +32,14 @@ public class Punch {
        
        
     
-    public Punch (Badge badge, int terminalid, int Punchtypeid){
+    public Punch (int termainalid, int Punchtypeid, int id, Badge badge, long orignialtimestamp){
         this.badge = badge;
         this.terminalid = terminalid;
         this.Punchtypeid = Punchtypeid;
+        this.id = id;
+        this.originaltimestamp = originaltimestamp;
+        
+        
         
         GregorianCalendar greCal = new GregorianCalendar();
         originaltimestamp = greCal.getTimeInMillis();
@@ -120,7 +124,26 @@ public class Punch {
           lunchStart.set(Calendar.MINUTE, s.getLunchStartMinute());
           long luchStartLong = lunchStart.getTimeInMillis();
           
+          GregorianCalendar lunchStop = new GregorianCalendar();
+          lunchStop.setTimeInMillis(originaltimestamp);
+          lunchStop.set(Calendar.HOUR, s.getLunchStopHour());
+          lunchStop.set(Calendar.MINUTE, s.getLunchStopMinute());
+          long luchStopLong = lunchStop.getTimeInMillis();
           
+          GregorianCalendar interval = new GregorianCalendar();
+          interval.setTimeInMillis(originaltimestamp);
+          interval.set(Calendar.MINUTE, s.getInterval());
+          long intervalLong = interval.getTimeInMillis();
+          
+          GregorianCalendar gracePeriod = new GregorianCalendar();
+          gracePeriod.setTimeInMillis(originaltimestamp);
+          gracePeriod.set(Calendar.MINUTE, s.getGracePeriod());
+          long gracePeriodLong = gracePeriod.getTimeInMillis();
+          
+          GregorianCalendar dock = new GregorianCalendar();
+          dock.setTimeInMillis(originaltimestamp);
+          dock.set(Calendar.MINUTE, s.getDock());
+          long dockLong = dock.getTimeInMillis();
       }
 
     public int getTerminalid() {
@@ -140,11 +163,11 @@ public class Punch {
     }
 
     public int getID() {
-        return ID;
+        return id;
     }
 
     public void setID(int ID) {
-        this.ID = ID;
+        this.id = ID;
     }
 
     public Badge getBadge() {
