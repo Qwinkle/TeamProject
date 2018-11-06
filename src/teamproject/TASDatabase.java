@@ -1,6 +1,7 @@
 package teamproject;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -10,6 +11,7 @@ public class TASDatabase {
     
     Connection conn = null;
     Statement stmt = null;
+    PreparedStatement pst = null;
     ResultSet rs = null;
     String query;
     Boolean hasResults;    
@@ -167,6 +169,33 @@ public class TASDatabase {
         }
         
         return getShift(shiftid);
+    }
+    
+    public void insertPunch(Punch p){
+        
+        
+        try{
+            
+            query = "INSERT INTO punch (terminalid, badgeid, originaltimestamp, punchtypeid) VALUES (?, ?, FROM_UNIXTIME(?), ?)";
+            
+            pst = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            pst.setString(1, Integer.toString(p.getTerminalId()));
+            pst.setString(2,p.getBadge().getId());
+            pst.setString(3, Long.toString(p.getOrigtimestamp()/1000));
+            pst.setString(4, Integer.toString(p.getPunchTypeId()));
+            
+            pst.executeUpdate();
+            
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        
+    }
+    
+    public ArrayList getDailyPunchList(Badge b, long ts){
+        ArrayList<Punch> punches = new ArrayList<Punch>();
+        
+        return punches;
     }
     
     public void close(){
