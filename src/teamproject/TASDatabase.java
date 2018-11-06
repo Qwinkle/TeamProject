@@ -179,10 +179,10 @@ public class TASDatabase {
             query = "INSERT INTO punch (terminalid, badgeid, originaltimestamp, punchtypeid) VALUES (?, ?, FROM_UNIXTIME(?), ?)";
             
             pst = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            pst.setString(1, Integer.toString(p.getTerminalId()));
+            pst.setString(1, Integer.toString(p.getTerminalid()));
             pst.setString(2,p.getBadge().getId());
-            pst.setString(3, Long.toString(p.getOrigtimestamp()/1000));
-            pst.setString(4, Integer.toString(p.getPunchTypeId()));
+            pst.setString(3, Long.toString(p.getOriginaltimestamp()/1000));
+            pst.setString(4, Integer.toString(p.getPunchtypeid()));
             
             pst.executeUpdate();
             
