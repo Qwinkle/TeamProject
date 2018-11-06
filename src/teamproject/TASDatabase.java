@@ -2,6 +2,7 @@ package teamproject;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -171,8 +172,8 @@ public class TASDatabase {
         return getShift(shiftid);
     }
     
-    public void insertPunch(Punch p){
-        
+    public int insertPunch(Punch p){
+        int punchKey = 0, updateCount = 0;
         
         try{
             
@@ -184,16 +185,57 @@ public class TASDatabase {
             pst.setString(3, Long.toString(p.getOriginaltimestamp()/1000));
             pst.setString(4, Integer.toString(p.getPunchtypeid()));
             
-            pst.executeUpdate();
+            updateCount = pst.executeUpdate();
+            
+            if (updateCount > 0){
+                rs = pst.getGeneratedKeys();
+                if (rs.next()){
+                    punchKey = rs.getInt(1);
+                }
+            }
             
         } catch (Exception e) {
             System.err.println(e.toString());
         }
         
+        return punchKey;
+        
     }
     
     public ArrayList getDailyPunchList(Badge b, long ts){
         ArrayList<Punch> punches = new ArrayList<Punch>();
+        int terminalId = 0, punchTypeId = 0, id = 0;
+        try{
+            
+            query = "SELECT * FROM punch p WHERE badgeid = '" + b.getId() + "' AND DATE(originaltimestamp) = DATE(FROM_UNIXTIME(" + ts/1000 + "))";
+            
+            rs = stmt.executeQuery(query);
+            
+            if (rs != null){
+                
+                int rows = 0;
+                
+                if (rs.last()){
+                    rows = rs.getRow();
+                    rs.first();
+                }
+                for(int i = 1; i < rows; i++){
+                   
+                    if(rs.next()){
+                        
+                        terminalId = rs.getInt("terminalid");
+                        punchTypeId = rs.getInt("punchtypeid");
+                        id = rs.getInt("id");
+                        
+                    }
+                    Punch p = new Punch(terminalId, punchTypeId, id, b, ts);
+                    
+                    punches.add(p);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
         
         return punches;
     }

@@ -23,8 +23,9 @@ public class TeamProject {
         catch(Exception e){
             System.err.println(e.toString());
         }
-        Punch punch = db.getPunch(1963);
+        Punch punch = db.getPunch(4716);
         System.out.println(punch.printOriginalTimestamp());
+        
     }
     
 }

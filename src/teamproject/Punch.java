@@ -32,7 +32,7 @@ public class Punch {
        
        
     
-    public Punch (int termainalid, int Punchtypeid, int id, Badge badge, long orignialtimestamp){
+    public Punch (int terminalid, int Punchtypeid, int id, Badge badge, long originaltimestamp){
         this.badge = badge;
         this.terminalid = terminalid;
         this.Punchtypeid = Punchtypeid;
@@ -40,9 +40,6 @@ public class Punch {
         this.originaltimestamp = originaltimestamp;
         
         
-        
-        GregorianCalendar greCal = new GregorianCalendar();
-        originaltimestamp = greCal.getTimeInMillis();
         
     }
         public String printOriginalTimestamp(){
