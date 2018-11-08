@@ -205,9 +205,10 @@ public class TASDatabase {
     public ArrayList getDailyPunchList(Badge b, long ts){
         ArrayList<Punch> punches = new ArrayList<Punch>();
         int terminalId = 0, punchTypeId = 0, id = 0;
+        long newTS = 0;
         try{
             
-            query = "SELECT * FROM punch p WHERE badgeid = '" + b.getId() + "' AND DATE(originaltimestamp) = DATE(FROM_UNIXTIME(" + ts/1000 + "))";
+            query = "SELECT *, UNIX_TIMESTAMP(originaltimestamp) FROM punch p WHERE badgeid = '" + b.getId() + "' AND DATE(originaltimestamp) = DATE(FROM_UNIXTIME(" + ts/1000 + "))";
             
             rs = stmt.executeQuery(query);
             
@@ -217,18 +218,20 @@ public class TASDatabase {
                 
                 if (rs.last()){
                     rows = rs.getRow();
-                    rs.first();
+                    rs.beforeFirst();
                 }
-                for(int i = 1; i < rows; i++){
+                
+                for(int i = 0; i < rows; i++){
                    
                     if(rs.next()){
                         
                         terminalId = rs.getInt("terminalid");
                         punchTypeId = rs.getInt("punchtypeid");
                         id = rs.getInt("id");
+                        newTS = rs.getLong("UNIX_TIMESTAMP(originaltimestamp)");
                         
                     }
-                    Punch p = new Punch(terminalId, punchTypeId, id, b, ts);
+                    Punch p = new Punch(terminalId, punchTypeId, id, b, newTS * 1000);
                     
                     punches.add(p);
                 }
