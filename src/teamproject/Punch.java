@@ -25,7 +25,11 @@ public class Punch {
         this.originaltimestamp = originaltimestamp;
         this.adjusttimestamp = adjusttimestamp;
     }
-    
+    public Punch(Badge Badge, int terminalid, int Punchtypeid){
+        this.badge = Badge;
+        this.terminalid=terminalid;
+        this.Punchtypeid=Punchtypeid;
+    }
 
    
         
@@ -141,6 +145,10 @@ public class Punch {
           dock.setTimeInMillis(originaltimestamp);
           dock.set(Calendar.MINUTE, s.getDock());
           long dockLong = dock.getTimeInMillis();
+      }
+      public String getBadgeid(){
+          String Badgeid = badge.getId();
+          return Badgeid;
       }
 
     public int getTerminalid() {
