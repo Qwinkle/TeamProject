@@ -112,6 +112,7 @@ public class Punch {
           shiftStart.set(Calendar.SECOND, 0);
           long shiftStartLong = shiftStart.getTimeInMillis();
           
+          
           GregorianCalendar shiftStop = new GregorianCalendar();
           shiftStop.setTimeInMillis(originaltimestamp);
           shiftStop.set(Calendar.HOUR, s.getShiftStopHour());
@@ -131,6 +132,7 @@ public class Punch {
           lunchStop.set(Calendar.MINUTE, s.getLunchStopMinute());
           long luchStopLong = lunchStop.getTimeInMillis();
           
+          
           GregorianCalendar interval = new GregorianCalendar();
           interval.setTimeInMillis(originaltimestamp);
           interval.set(Calendar.MINUTE, s.getInterval());
@@ -145,12 +147,20 @@ public class Punch {
           dock.setTimeInMillis(originaltimestamp);
           dock.set(Calendar.MINUTE, s.getDock());
           long dockLong = dock.getTimeInMillis();
+          
+          GregorianCalendar ots = new GregorianCalendar();
+          ots.setTimeInMillis(originaltimestamp);
+          int otsDay = ots.get(Calendar.DAY_OF_WEEK);
+          if (otsDay != Calendar.SATURDAY || otsDay != Calendar.SUNDAY){
+             
+          }
       }
       public String getBadgeid(){
           String Badgeid = badge.getId();
           return Badgeid;
       }
-
+      
+      
     public int getTerminalid() {
         return terminalid;
     }
