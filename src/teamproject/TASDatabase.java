@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 
 /**
  *
- * @author qwink
+ * @author Adam
  */
 public class TASDatabase {
     
@@ -241,6 +241,12 @@ public class TASDatabase {
         }
         
         return punches;
+    }
+    
+    public ArrayList getPayPeriodPunchList(Badge b, long ts){
+        ArrayList<Punch> dailyPunch = new ArrayList<Punch>();
+        
+        return null;
     }
     
     public void close(){

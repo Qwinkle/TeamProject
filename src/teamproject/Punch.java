@@ -29,6 +29,10 @@ public class Punch {
         this.badge = Badge;
         this.terminalid=terminalid;
         this.Punchtypeid=Punchtypeid;
+        
+        GregorianCalendar greCal = new GregorianCalendar();
+        
+        originaltimestamp = greCal.getTimeInMillis();
     }
 
    

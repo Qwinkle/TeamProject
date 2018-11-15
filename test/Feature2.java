@@ -2,6 +2,7 @@ import teamproject.Shift;
 import teamproject.TASDatabase;
 import teamproject.Punch;
 import teamproject.Badge;
+import teamproject.TASLogic;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
