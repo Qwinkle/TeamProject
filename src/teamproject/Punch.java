@@ -155,8 +155,27 @@ public class Punch {
           GregorianCalendar ots = new GregorianCalendar();
           ots.setTimeInMillis(originaltimestamp);
           int otsDay = ots.get(Calendar.DAY_OF_WEEK);
+          int otsMin = ots.get(Calendar.MINUTE);
+          int otsHour = ots.get(Calendar.HOUR);
           if (otsDay != Calendar.SATURDAY || otsDay != Calendar.SUNDAY){
-             
+             if (otsHour == shiftStart.get(Calendar.HOUR)&&otsMin <= interval.get(Calendar.MINUTE)|| otsMin != shiftStart.get(Calendar.MINUTE)){
+                 System.out.print(adjusttimestamp + "interval round" );
+             }
+             else if (otsHour == shiftStart.get(Calendar.HOUR)&&otsMin >= dock.get(Calendar.MINUTE)||otsMin != shiftStart.get(Calendar.MINUTE)){
+                 System.out.println(adjusttimestamp + "dock");
+             }
+             else if (otsHour == shiftStop.get(Calendar.HOUR)&&otsHour == lunchStart.get(Calendar.HOUR)){
+                 System.out.println(adjusttimestamp + "Lunch Start");
+                 }
+             else if (otsHour == lunchStop.get(Calendar.HOUR)&&otsHour == shiftStart.get(Calendar.HOUR)){
+                System.out.println(adjusttimestamp + "Lunch Stop");
+             }
+             else if (otsHour == shiftStart.get(Calendar.HOUR)&& otsMin == shiftStart.get(Calendar.MINUTE)&&otsMin <= gracePeriod.get(Calendar.MINUTE)||otsHour == shiftStop.get(Calendar.HOUR)&&otsMin == shiftStop.get(Calendar.MINUTE)&&otsMin >= gracePeriod.get(Calendar.MINUTE)){
+                 System.out.println(adjusttimestamp + "grace period");
+          }
+             else {
+                 System.out.println("None");
+             }
           }
       }
       public String getBadgeid(){
