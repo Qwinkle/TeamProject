@@ -1,8 +1,4 @@
-import teamproject.Shift;
-import teamproject.TASDatabase;
-import teamproject.Punch;
-import teamproject.Badge;
-import teamproject.TASLogic;
+import teamproject.*;
 
 import org.junit.*;
 import static org.junit.Assert.*;
