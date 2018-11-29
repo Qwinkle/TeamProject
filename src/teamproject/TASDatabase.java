@@ -2,6 +2,7 @@ package teamproject;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
@@ -172,6 +173,60 @@ public class TASDatabase {
         return getShift(shiftid);
     }
     
+    public Absenteeism getAbsenteeism(Badge b, long ts){
+        String badgeid = b.getId();
+        double percentage = 0;
+        Absenteeism a;
+        
+        try{
+            
+            query = "SELECT * FROM Absenteeism a WHERE badgeid = '" + badgeid + "'";
+            
+            rs = stmt.executeQuery(query);
+            
+            if (rs != null){
+                
+                percentage = rs.getDouble("percentage");
+                
+            }
+            
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        
+        a = new Absenteeism(badgeid, ts, percentage);
+        return a;
+    }
+    
+    public void insertAbsenteeism(Absenteeism a){
+        String badgeid = a.getBadgeid();
+        Long ts = a.getTs()/1000;
+        //see if absenteeism exists
+        try{
+            
+            query = "SELECT * FROM Absenteeism a WHERE badgeid = '" + badgeid + "' AND payperiod = date('" + ts + "')";
+            
+            
+            rs = stmt.executeQuery(query);
+            
+            //absenteeism already exists
+            if (rs != null){
+                //insert new percentage
+                query = "INSERT INTO absenteeism (percentage) VALUES(" +  Double.toString(a.getPercentage()) +")";
+                stmt.execute(query);
+            }
+            else{
+                //create new row
+                query = "INSERT INTO absenteeism (badgeid, payperiod, percentage) VALUES(" + a.getBadgeid() + ", FROM_UNIXTIME(" + Long.toString(a.getTs()/1000) + "), " + Double.toString(a.getPercentage()) + ")";
+            }
+            
+            
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        
+    }
+    
     public int insertPunch(Punch p){
         int punchKey = 0, updateCount = 0;
         
@@ -244,9 +299,66 @@ public class TASDatabase {
     }
     
     public ArrayList getPayPeriodPunchList(Badge b, long ts){
-        ArrayList<Punch> dailyPunch = new ArrayList<Punch>();
         
-        return null;
+        int terminalId = 0, punchTypeId = 0, id = 0;
+        long newTS = 0;
+        ArrayList<Punch> punches = new ArrayList<Punch>();
+        GregorianCalendar greCalSunday = new GregorianCalendar();
+        GregorianCalendar greCalSaturday = new GregorianCalendar();
+        
+        //get payperiod start and end
+        //start at sunday at midnight
+        greCalSunday.setTimeInMillis(ts);
+        greCalSunday.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        greCalSunday.set(Calendar.HOUR_OF_DAY, 0);
+        greCalSunday.set(Calendar.MINUTE, 0);
+        greCalSunday.set(Calendar.SECOND, 0);
+        
+        //end at saturday 23:59:59
+        greCalSaturday.setTimeInMillis(ts);
+        greCalSaturday.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+        greCalSaturday.set(Calendar.HOUR_OF_DAY, 23);
+        greCalSaturday.set(Calendar.MINUTE, 59);
+        greCalSaturday.set(Calendar.SECOND, 59);
+        
+        try{
+            
+            query = "SELECT *, UNIX_TIMESTAMP(originaltimestamp) FROM punch p WHERE DATE(originaltimestamp) >= DATE(FROM_UNIXTIME(" + greCalSunday.getTimeInMillis()/1000 + ")) AND DATE(originaltimestamp) <= DATE(FROM_UNIXTIME("+ greCalSaturday.getTimeInMillis()/1000 + "))";
+            
+            rs = stmt.executeQuery(query);
+            
+            
+            if (rs != null){
+                
+                int rows = 0;
+                
+                if (rs.last()){
+                    rows = rs.getRow();
+                    rs.beforeFirst();
+                }
+                
+                for(int i = 0; i < rows; i++){
+                   
+                    if(rs.next()){
+                        
+                        terminalId = rs.getInt("terminalid");
+                        punchTypeId = rs.getInt("punchtypeid");
+                        id = rs.getInt("id");
+                        newTS = rs.getLong("UNIX_TIMESTAMP(originaltimestamp)");
+                        
+                    }
+                    Punch p = new Punch(terminalId, punchTypeId, id, b, newTS * 1000);
+                    
+                    punches.add(p);
+                }
+            }
+        }
+        
+        catch(Exception e){
+            System.err.println(e.toString());
+        }
+        
+        return punches;
     }
     
     public void close(){
