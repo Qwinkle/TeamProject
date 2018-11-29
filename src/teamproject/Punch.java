@@ -79,7 +79,7 @@ public class Punch {
         }
         
     
-      public String printAdjustedTimeStamp(){
+      public String printAdjustedTimestamp(){
             
             GregorianCalendar greCal = new GregorianCalendar();
             greCal.setTimeInMillis(originaltimestamp);
