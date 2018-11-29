@@ -173,8 +173,8 @@ public class TASDatabase {
         return getShift(shiftid);
     }
     
-    public Absenteeism getAbsenteeism(Badge b, long ts){
-        String badgeid = b.getId();
+    public Absenteeism getAbsenteeism(String badgeid, long ts){
+        
         double percentage = 0;
         Absenteeism a;
         
@@ -323,7 +323,7 @@ public class TASDatabase {
         
         try{
             
-            query = "SELECT *, UNIX_TIMESTAMP(originaltimestamp) FROM punch p WHERE DATE(originaltimestamp) >= DATE(FROM_UNIXTIME(" + greCalSunday.getTimeInMillis()/1000 + ")) AND DATE(originaltimestamp) <= DATE(FROM_UNIXTIME("+ greCalSaturday.getTimeInMillis()/1000 + "))";
+            query = "SELECT *, UNIX_TIMESTAMP(originaltimestamp) FROM punch p WHERE DATE(originaltimestamp) >= DATE(FROM_UNIXTIME(" + greCalSunday.getTimeInMillis()/1000 + ")) AND DATE(originaltimestamp) <= DATE(FROM_UNIXTIME("+ greCalSaturday.getTimeInMillis()/1000 + ")) AND badgeid = '" + b.getId() + "'";
             
             rs = stmt.executeQuery(query);
             
