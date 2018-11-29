@@ -15,7 +15,7 @@ public class Punch {
     
     private int terminalid, Punchtypeid, id;
     private Badge badge;
-    private long originaltimestamp, adjusttimestamp;
+    private long originaltimestamp, adjustedtimestamp;
 
     public Punch(int terminalid, int Punchtypeid, int id, Badge badge, long originaltimestamp, long adjusttimestamp) {
         this.terminalid = terminalid;
@@ -23,7 +23,7 @@ public class Punch {
         this.id = id;
         this.badge = badge;
         this.originaltimestamp = originaltimestamp;
-        this.adjusttimestamp = adjusttimestamp;
+        this.adjustedtimestamp = adjusttimestamp;
     }
     public Punch(Badge Badge, int terminalid, int Punchtypeid){
         this.badge = Badge;
@@ -159,19 +159,19 @@ public class Punch {
           int otsHour = ots.get(Calendar.HOUR);
           if (otsDay != Calendar.SATURDAY || otsDay != Calendar.SUNDAY){
              if (otsHour == shiftStart.get(Calendar.HOUR)&&otsMin <= interval.get(Calendar.MINUTE)|| otsMin != shiftStart.get(Calendar.MINUTE)){
-                 System.out.print(adjusttimestamp + "interval round" );
+                 System.out.print(adjustedtimestamp + "interval round" );
              }
              else if (otsHour == shiftStart.get(Calendar.HOUR)&&otsMin >= dock.get(Calendar.MINUTE)||otsMin != shiftStart.get(Calendar.MINUTE)){
-                 System.out.println(adjusttimestamp + "dock");
+                 System.out.println(adjustedtimestamp + "dock");
              }
              else if (otsHour == shiftStop.get(Calendar.HOUR)&&otsHour == lunchStart.get(Calendar.HOUR)){
-                 System.out.println(adjusttimestamp + "Lunch Start");
+                 System.out.println(adjustedtimestamp + "Lunch Start");
                  }
              else if (otsHour == lunchStop.get(Calendar.HOUR)&&otsHour == shiftStart.get(Calendar.HOUR)){
-                System.out.println(adjusttimestamp + "Lunch Stop");
+                System.out.println(adjustedtimestamp + "Lunch Stop");
              }
              else if (otsHour == shiftStart.get(Calendar.HOUR)&& otsMin == shiftStart.get(Calendar.MINUTE)&&otsMin <= gracePeriod.get(Calendar.MINUTE)||otsHour == shiftStop.get(Calendar.HOUR)&&otsMin == shiftStop.get(Calendar.MINUTE)&&otsMin >= gracePeriod.get(Calendar.MINUTE)){
-                 System.out.println(adjusttimestamp + "grace period");
+                 System.out.println(adjustedtimestamp + "grace period");
           }
              else {
                  System.out.println("None");
@@ -225,11 +225,11 @@ public class Punch {
     }
 
     public long getAdjusttimestamp() {
-        return adjusttimestamp;
+        return adjustedtimestamp;
     }
 
     public void setAdjusttimestamp(long adjusttimestamp) {
-        this.adjusttimestamp = adjusttimestamp;
+        this.adjustedtimestamp = adjusttimestamp;
     }
 
     
